@@ -55,7 +55,7 @@ export default {
                             <p>{{ level.password || 'Free to Copy' }}</p>
                         </li>
                     </ul>
-                    <h2>Records</h2>
+                    <h2><h2>Records</h2>
                     <p v-if="selected + 1 <= 75"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
                     <p v-else-if="selected +1 <= 150"><strong>100%</strong> or better to qualify</p>
                     <p v-else>This level does not accept new records.</p>
@@ -138,9 +138,15 @@ export default {
     }),
     computed: {
         level() {
+            if (!this.list || !this.list[this.selected]) {
+                return null;
+            }
             return this.list[this.selected][0];
         },
         video() {
+            if (!this.level) {
+                return "";
+            }
             if (!this.level.showcase) {
                 return embed(this.level.verification);
             }
